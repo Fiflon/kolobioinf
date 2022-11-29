@@ -16,14 +16,14 @@ r = genextreme.rvs(c,size=10000,loc=8000,scale=500)
 r=r.astype(int)
 ax.hist(r,bins=50, density=True, histtype="stepfilled")
 
-caly_genom = SeqIO.read("C:\\Users\\bloom\\Desktop\\kolobioinf-master\\kolobioinf-master\\sequence.fasta", "fasta")
+caly_genom = SeqIO.read("C:\\Users\\bloom\\Desktop\\STUDIA\\KN Genomika\\generowanie w py\\sequence.fasta", "fasta")
 i = 0
 suma = 0
 fragmenty = []
 limit = len(caly_genom.seq)
-plik_sam = open("C:\\Users\\bloom\\Desktop\\kolobioinf-master\\kolobioinf-master\\fragmenty.sam","w")
+plik_sam = open("C:\\Users\\bloom\\Desktop\\STUDIA\\KN Genomika\\generowanie w py\\fragmenty.sam","w")
 tmp=""
-plik_sam.write("@SQ\tSN:kng_reg01\tLN:1000000")
+plik_sam.write("@SQ\tSN:kng_reg01\tLN:1000000\n")
 for dlugosc in r:
     if dlugosc < 0:
         dlugosc = dlugosc * (-1)
@@ -37,10 +37,9 @@ for dlugosc in r:
     fragmenty.append(record)
     i = i+1
     tmp="odczyt_"+str(i)+"_s"+str(start)+"_d"+str(dlugosc)+".fasta"
-    plik_sam.write(tmp+"\t0\tkng_reg01\t"+str(start)+"\t60\t"+str(dlugosc)+"M\t*\t0\t0\t"+str(fragment)+"\t*\n")
+    plik_sam.write(">"+tmp+"\t0\tkng_reg01\t"+str(start)+"\t60\t"+str(dlugosc)+"M\t*\t0\t0\t"+str(fragment)+"\t*\n")
     suma+=dlugosc
-    print(suma)
     if suma>20000000:
         break
 
-SeqIO.write(fragmenty, "C:\\Users\\bloom\\Desktop\\kolobioinf-master\\kolobioinf-master\\fragmenty.fasta", "fasta")
+SeqIO.write(fragmenty, "C:\\Users\\bloom\\Desktop\\STUDIA\\KN Genomika\\generowanie w py\\fragmenty.fasta", "fasta")
